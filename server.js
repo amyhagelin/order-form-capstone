@@ -1,13 +1,26 @@
+const DATABASE_URL = process.env.DATABASE_URL ||
+                       global.DATABASE_URL ||
+                      'mongodb://localhost/blog-app';
+const PORT = process.env.PORT || 8080;
+
 var express = require('express');
 var app = express();
 app.use(express.static('public'));
 // app.listen(process.env.PORT || 8080);
 
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 let server;
 
 // this function connects to our database, then starts the server
-function runServer(databaseUrl, port=8080) {
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
   return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => { // NEW
+      if (err) {
+        return reject(err);
+      }
+    
       server = app.listen(port, () => {
         console.log(`Your app is listening on port ${port}`);
         resolve();
@@ -15,6 +28,7 @@ function runServer(databaseUrl, port=8080) {
       .on('error', err => {
         reject(err);
       });
+    });
   });
 }
 
