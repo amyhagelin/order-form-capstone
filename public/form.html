@@ -5,20 +5,26 @@
 </head>
 <body>
 <form>
-Name: <input type="text" required name=""><br>
-Email: <input type="email" required name=""><br>
+Name: <input type="text" required name="name"><br>
+Email: <input type="email" required name="email"><br>
 Phone Number: <input type="text" required name=""><br>
 Submission date (automate)
 Pick-up Date: <input type="date" required name=""><br>
 Pick-up Time (must be during business hours)
-Checkbox: cake, cupcake
-Servings: <input type="number" required name=""><br>
-Cake Flavor:
-Frosting Flavor: 
-Filling:
-Decoration: <input type="text" required name=""><br>
+Cake Servings: <input type="number" name=""><br>
+Cupcake Servings: <input type="number" name=""><br>
+Cake Flavor: <input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
+<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
+<input type="checkbox" name="cake-flavor" value="lemon" />Lemon
+<input type="checkbox" name="cake-flavor" value="carrot" />Carrot
+<input type="checkbox" name="cake-flavor" value="red-velvet" />Red Velvet
+Frosting Flavor: <input type="checkbox" name="frosting-flavor" value="vanilla" />Vanilla
+<input type="checkbox" name="frosting-flavor" value="chocolate" />Chocolate
+<input type="checkbox" name="frosting-flavor" value="cream-cheese" />Cream Cheese
+Decoration: <input type="text" name=""><br>
 Written Message: <input type="text" name=""><br>
 Additional Requests: <input type="text" name=""><br>
+<button>submit</button>
 </form>
 </body>
 </html>
