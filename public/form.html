@@ -4,27 +4,76 @@
 	<title>Order Form</title>
 </head>
 <body>
-<form>
-Name: <input type="text" required name="name"><br>
-Email: <input type="email" required name="email"><br>
-Phone Number: <input type="text" required name="phone"><br>
-Pick-up Date: <input type="date" required name="pick-up-date"><br>
-Pick-up Time: <input type="time" required name="pick-up-time"><br>
-Cake Servings: <input type="number" name="cake-servings"><br>
-Cupcake Servings: <input type="number" name="cupcake-servings"><br>
-Cake Flavor: <input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
-<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
-<input type="checkbox" name="cake-flavor" value="lemon" />Lemon
-<input type="checkbox" name="cake-flavor" value="carrot" />Carrot
-<input type="checkbox" name="cake-flavor" value="red-velvet" />Red Velvet<br>
-Frosting Flavor: <input type="checkbox" name="frosting-flavor" value="vanilla" />Vanilla
-<input type="checkbox" name="frosting-flavor" value="chocolate" />Chocolate
-<input type="checkbox" name="frosting-flavor" value="cream-cheese" />Cream Cheese<br>
-Decoration: <input type="text" name="decoration"><br>
-Written Message: <input type="text" name="message"><br>
-Additional Requests: <input type="text" name="requests"><br>
-Submission date (automate)
-<button>submit</button>
-</form>
+	<form id='order-form'>
+		Name: <input type="text" name="name"><br>
+		Email: <input type="email" name="email"><br>
+		Phone Number: <input type="text" name="phone"><br>
+		Pick-up Date: <input type="date" name="pick-up-date"><br>
+		Pick-up Time: <input type="time" name="pick-up-time"><br>
+		Cake Servings: <input type="number" name="cake-servings"><br>
+		Cupcake Servings: <input type="number" name="cupcake-servings"><br>
+		Cake Flavor: <input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
+		<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
+		<input type="checkbox" name="cake-flavor" value="lemon" />Lemon
+		<input type="checkbox" name="cake-flavor" value="carrot" />Carrot
+		<input type="checkbox" name="cake-flavor" value="red-velvet" />Red Velvet<br>
+		Frosting Flavor: <input type="checkbox" name="frosting-flavor" value="vanilla" />Vanilla
+		<input type="checkbox" name="frosting-flavor" value="chocolate" />Chocolate
+		<input type="checkbox" name="frosting-flavor" value="cream-cheese" />Cream Cheese<br>
+		Decoration: <input type="text" name="decoration"><br>
+		Written Message: <input type="text" name="message"><br>
+		Additional Requests: <input type="text" name="requests"><br>
+		<button>submit</button>
+	</form>
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function() {
+	watchSubmit();
+})
+
+function watchSubmit() {
+	$(document).on('submit', '#order-form', function(e) {
+		console.log('submit')
+		e.preventDefault();
+
+		var orderFormData = {
+			cakeFlavor: [],
+			frostingFlavor: []
+		}
+
+		$('#order-form input:not([type="checkbox"])').each(function() {
+			orderFormData[$(this).attr('name')] = $(this).val()
+		})
+
+		$('#order-form input[type="checkbox"]').each(function() {
+			if($(this).prop('checked')) {
+				if($(this).attr('name') == 'cake-flavor') {
+						orderFormData.cakeFlavor.push($(this).val())
+				}
+				if($(this).attr('name') == 'frosting-flavor') {
+						orderFormData.frostingFlavor.push($(this).val())
+				}
+			}				
+		})
+
+		console.log(orderFormData)
+
+		$.ajax({
+		  url: "/orders",
+		  method: "POST",
+		  data: JSON.stringify(orderFormData),
+		  contentType: "application/json"
+		})
+		.done(function( data ) {
+    			alert( "Data Loaded: " + data );
+	  		});
+	  		
+
+	})
+}
+</script>
 </body>
 </html>

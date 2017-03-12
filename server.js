@@ -11,6 +11,8 @@ app.use(express.static('public'));
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+app.use('/orders', require('./ordersRouter'));
+
 let server;
 
 // this function connects to our database, then starts the server
