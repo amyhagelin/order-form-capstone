@@ -1,6 +1,3 @@
-// it('should return 2', function(){
-// 	expect(1 + 1).to.equal(1);
-// })
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -10,7 +7,7 @@ chai.use(chaiHttp);
 
 const {closeServer, runServer, app} = require('../server');
 
-describe('blog posts API resource', function() {
+describe('Orders API resource', function() {
 	before(function() {
 		return runServer();
 	});
@@ -18,16 +15,122 @@ describe('blog posts API resource', function() {
 		return closeServer();
 	})
 
+	// it('should return status code of 200', function() {
+	// 	return chai.request(app)
+	// 		.get('/')
+	// 		.then(function(res) {
+	// 			console.log('response')
+	// 			res.should.have.status(200);
+	// 			// console.log(res.body.length, count)
+	// 			// res.body.should.have.length.of(10);
+	// 		})
+	// });
 
-	it('should return status code of 200', function() {
-		return chai.request(app)
-			.get('/')
-			.then(function(res) {
-				console.log('response')
-				res.should.have.status(200);
-				// console.log(res.body.length, count)
-				// res.body.should.have.length.of(10);
+	// GET TEST
+	it('should return all orders', function() {
+			let res;
+			return chai.request(app)
+				.get('/orders')
+				.then(function(_res) {
+					console.log('response')
+					res = _res;
+					res.should.have.status(200);
+					// console.log(res.body.length, count)
+					// res.body.should.have.length.of(10);
+				})
+		});
+
+	// POST TEST
+
+	function generateOrder() {
+			return {
+				name: 'Test Name',
+				email: 'name@fakeemail.com',
+				phone: '123-456-7890',
+				pickupDate: '03/12/17',
+			    pickupTime: '03/24/17',
+			    cakeServings: 12,
+			    cupcakeServings: 12,
+			    cakeFlavor: 'chocolate',
+			    frostingFlavor: 'vanilla',
+			    decoration: 'pink and yellow flowers',
+			    message: 'Happy Birthday',
+			    requests: 'include package of 12 candles'
+			}
+		}
+
+	const newOrder = generateOrder()
+
+		it('should create a new order', function() {
+			return chai.request(app)
+				.post('/orders')
+				.send(newOrder)
+				.then(function(res){
+					res.should.have.status(201);
+					res.should.be.json;
+					res.body.should.be.a('object');
+					res.body.should.include.keys('name', 'email', 'phone');
+					res.body.name.should.equal(newOrder.name);
+					res.body.id.should.not.be.null;
+					res.body.email.should.equal(newOrder.email);
+					res.body.phone.should.equal(newOrder.phone);
+					return Orders.findById(res.body.id);
+				})
+				.then(function(orders) {
+					orders.name.should.equal(newOrder.name);
+					orders.email.should.equal(newOrder.email);
+					orders.phone.should.equal(newOrder.phone);
+				});
+		})
+
+
+	// DELETE TEST
+	it('should delete an order', function() {
+
+		let orderTemp;
+
+		return Orders
+			.findOne()
+			.exec()
+			.then(function(blogPost) {
+				orderTemp = Orders;
+				return chai.request(app).delete(`/orders/${orders.id}`);
 			})
-	});
+			.then(function(res){
+				res.should.have.status(204);
+				return orders.findById(orderTemp.id).exec();
+			})
+			.then(function(orders){
+				should.not.exist(orders);
+			})	
+	})
+
+	// PUT TEST
+
+	const updateData = {name: 'Updated Name'};
+
+		it('should update an existing order', function() {
+			return Orders
+			.findOne()
+			.exec()
+			.then(function(order){
+				updateData.id = order.id;
+				return chai.request(app)
+					.put(`/orders/${order.id}`)
+					.send(updateData);
+			})
+			.then(function(res){
+				res.should.have.status(201);
+
+				return Orders.findById(updateData.id).exec();
+			})
+			.then(function(order) {
+				order.title.should.equal(updateData.title);
+			});
+		})
+
+
+
+
 
 });
