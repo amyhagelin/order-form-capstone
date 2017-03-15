@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+</head>
+<body>
+<form id=signup-form>
+	First Name: <input type="text" name="firstName"><br>
+	Last Name: <input type="text" name="lastName"><br>
+	Username: <input type="text" name="username"><br>
+	Password: <input type="text" name="password"><br>
+	<button>submit</button>
+</form>
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function() {
+	watchSubmit();
+})
+
+function watchSubmit() {
+	$(document).on('submit', '#signup-form', function(e) {
+		console.log('submit')
+		e.preventDefault();
+
+		var signupFormData = {}
+
+		$('#signup-form input').each(function() {
+			signupFormData[$(this).attr('name')] = $(this).val()
+		})
+
+		console.log(signupFormData)
+
+		$.ajax({
+		  url: "/users",
+		  method: "POST",
+		  data: JSON.stringify(signupFormData),
+		  contentType: "application/json"
+		})
+		.done(function( data ) {
+    			alert( "Data Loaded: " + data );
+	  		});
+	})
+}
+</script>
+</body>
+</html>

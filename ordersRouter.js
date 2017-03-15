@@ -4,7 +4,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {Orders} = require('./models');
+const {Orders} = require('./ordersModels');
 
 router.get('/', (req, res) => {
   Orders
@@ -18,23 +18,31 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', jsonParser, (req,res) => {
-	console.log(req.body)
+  ['name', 'email', 'phone'].forEach((field) => {
+  	if (!(req.body[field])) {
+      const message = `Missing \`${field}\` in request body.`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  })
+
 	Orders
 		.create(req.body)
 		.then(document => {
 			res.status(201).json(document);
 		})
 		.catch(err => {
+			console.error(err);
 			res.status(500).send('Something went wrong');
 		});
 });
 
 router.delete('/:id', (req, res) => {
   Orders
-    .findByIdAndRemove(req.params.id) // NEW
+    .findByIdAndRemove(req.params.id)
     .exec()
     .then(() => {
-      console.log(`Deleted blog post \`${req.params.ID}\``);
+      console.log(`Deleted blog post \`${req.params.id}\``);
       res.status(204).end()
     })
     .catch(err => {
@@ -42,7 +50,7 @@ router.delete('/:id', (req, res) => {
 	});
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', jsonParser, (req, res) => {
   const requiredFields = ['name', 'email', 'phone'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -52,38 +60,36 @@ router.put('/:id', (req, res) => {
       return res.status(400).send(message);
     }
   }
-  if (req.params.id !== req.body.id) {
-    const message = (
-      `Request path id (${req.params.id}) and request body id `
-      `(${req.body.id}) must match`);
+  if (req.params.id !== req.body._id) {
+    const message = `Request path id (${req.params.id}) and request body id (${req.body._id}) must match`;
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating order \`${req.params.id}\``);
+  // console.log(`Updating order \`${req.params.id}\``);
    
-   const toUpdate = {};
-   const updateableFields = {
-	   	name,
-	   	email,
-	   	phone,
-	   	pickupDate,
-	    pickupTime, 
-	    cakeServings,
-	    cupcakeServings,
-	    cakeFlavor,
-	    frostingFlavor,
-	    decoration,
-	    message,
-	    requests
-	};
-    updatableFields.forEach(field => {
-      if (field in req.body) {
-        toUpdate[field] = req.body[field];
-      }
-    });
+ //   const toUpdate = {};
+ //   const updateableFields = {
+	//    	name,
+	//    	email,
+	//    	phone,
+	//    	pickupDate,
+	//     pickupTime, 
+	//     cakeServings,
+	//     cupcakeServings,
+	//     cakeFlavor,
+	//     frostingFlavor,
+	//     decoration,
+	//     message,
+	//     requests
+	// };
+ //    updatableFields.forEach(field => {
+ //      if (field in req.body) {
+ //        toUpdate[field] = req.body[field];
+ //      }
+ //    });
 
     Orders
-      .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+      .findByIdAndUpdate(req.params.id, {$set: req.body})
       .exec()
       .then(() => res.status(204).end())
 });

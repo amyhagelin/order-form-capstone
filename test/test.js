@@ -5,6 +5,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
+const {Orders} = require('../models');
+
 const {closeServer, runServer, app} = require('../server');
 
 describe('Orders API resource', function() {
@@ -71,10 +73,10 @@ describe('Orders API resource', function() {
 					res.body.should.be.a('object');
 					res.body.should.include.keys('name', 'email', 'phone');
 					res.body.name.should.equal(newOrder.name);
-					res.body.id.should.not.be.null;
+					res.body._id.should.not.be.null;
 					res.body.email.should.equal(newOrder.email);
 					res.body.phone.should.equal(newOrder.phone);
-					return Orders.findById(res.body.id);
+					return Orders.findById(res.body._id);
 				})
 				.then(function(orders) {
 					orders.name.should.equal(newOrder.name);
@@ -92,40 +94,42 @@ describe('Orders API resource', function() {
 		return Orders
 			.findOne()
 			.exec()
-			.then(function(blogPost) {
-				orderTemp = Orders;
-				return chai.request(app).delete(`/orders/${orders.id}`);
+			.then(function(order) {
+				orderTemp = order;
+				return chai.request(app).delete(`/orders/${order._id}`);
 			})
 			.then(function(res){
 				res.should.have.status(204);
-				return orders.findById(orderTemp.id).exec();
+				return Orders.findById(orderTemp._id).exec();
 			})
-			.then(function(orders){
-				should.not.exist(orders);
+			.then(function(order){
+				should.not.exist(order);
 			})	
 	})
 
 	// PUT TEST
 
-	const updateData = {name: 'Updated Name'};
+	const updateData = {name: 'Updated Name', email: 'updated@email.com', phone: '123456789'};
 
 		it('should update an existing order', function() {
 			return Orders
 			.findOne()
 			.exec()
 			.then(function(order){
-				updateData.id = order.id;
+				updateData._id = order._id;
 				return chai.request(app)
-					.put(`/orders/${order.id}`)
+					.put(`/orders/${order._id}`)
 					.send(updateData);
 			})
 			.then(function(res){
-				res.should.have.status(201);
+				res.should.have.status(204);
 
-				return Orders.findById(updateData.id).exec();
+				return Orders.findById(updateData._id).exec();
 			})
 			.then(function(order) {
-				order.title.should.equal(updateData.title);
+				order.name.should.equal(updateData.name);
+				order.email.should.equal(updateData.email);
+				order.phone.should.equal(updateData.phone);
 			});
 		})
 

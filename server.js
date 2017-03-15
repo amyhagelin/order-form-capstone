@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 app.use('/orders', require('./ordersRouter'));
+app.use('/users', require('./usersRouter'));
 
 let server;
 
