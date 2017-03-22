@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Welcome</title>
+	<title>Orders</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
-<p>Hello world</p>
+	<div class="home-image">
+	<header>
+	<a href="/signup.html">SIGN IN</a><a href="orders.html">LOG IN</a>
+	</header>
+	<div class="welcome"> 
+		<h1>Welcome</h1>
+		<a href="/form.html">PLACE AN ORDER</a>
+	</div>
+	
+	</div>
+	<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function() {
+	watchSignUp();
+	watchLogIn();
+	watchPlaceOrder();
+})
+
+function watchSignUp() {
+	$(document).on('submit', '#signUp', function(e) {
+		// call signup.html
+	})
+
+function watchLogIn() {
+	$(document).on('submit', '#logIn', function(e) {
+		// call orders.html
+	})
+
+function watchPlaceOrder() {
+	$(document).on('submit', '#placeOrder', function(e) {
+		// call form.html
+	})
+
+}
+</script>
 </body>
 </html>
 

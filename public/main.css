@@ -1,0 +1,101 @@
+body {
+	font-family: 'Nunito', sans-serif;
+	padding: 0;
+	margin: 0;
+	background-color: #BBE6ED
+}
+
+form {
+		line-height: 200%;
+		display: inline-block;
+    	text-align: left;
+}
+
+.login-container {
+	margin: auto;
+	background-color: white;
+	padding: 20px;
+	width: 30%;
+}
+
+a {
+	font-family: 'Nunito', sans-serif;
+	width: 170px;
+    height: 40px;
+    font-size: 16px;
+    background-color: none;
+    border: 2px solid white;
+    box-shadow: none;
+    letter-spacing: 1px;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+a:hover {
+	background-color: #E8CFDE;
+}
+
+table, th, td {
+   text-align: center;
+}
+
+th, td {
+	padding: 15px;
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table th {
+    color: white;
+    background-color: grey;
+}
+
+table {
+	border: 1px solid grey;
+
+}
+
+
+.container {
+	background-color: blue;
+	width: 50%;
+	margin: auto;
+	padding: 10%;
+}
+
+header {
+	text-align: right;
+	position: relative;
+	top: 25px;
+}
+
+.home-image {
+
+	background-image: url("cupcakes.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 800px;
+}
+
+.welcome {
+	margin: auto;
+	text-align: center
+}
+
+h1 {
+	text-align: center;
+	padding-top: 10%;
+	color: white;
+	letter-spacing: 3px;
+	font-size: 300%;
+}
+
