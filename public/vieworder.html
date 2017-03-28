@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View Order</title>
+</head>
+<body>
+<div id="order">Hello order!</div>
+</body>
+<script
+		src="https://code.jquery.com/jquery-3.1.1.min.js"
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(function() {
+			
+			function renderOrder(data) {
+				// TODO put renderOrder function here 	
+				console.log("data" + data);
+
+				var orderHTML = '<div><p>' +
+				'Name: ' + data.name + '<br>' +
+				'Email: ' + data.email + '<br>' +
+				'Pick-up Date: ' + data.pickupDate + '<br>' +
+				'Pick-up Time: ' + data.pickupTime + '<br>' +
+				'Cake Servings: ' + data.cakeServings + '<br>' +
+				'Cupcake Servings: ' + data.cupcakeServings + '<br>' +
+				'Cake Flavor: ' + data.cakeFlavor + '<br>' +
+				'Frosting Flavor: ' + data.frostingFlavor + '<br>' +
+				'Decoration: ' + data.decoration + '<br>' +
+				'Message: ' + data.message + '<br>' +
+				'Requests: ' + data.requests + '<br>' +
+				'Date Order Submitted: ' + data.submissionDate + '<br>' +
+				'Assigned To: ' + data.assignedTo + '<br>';
+				 $('#order').html(orderHTML);
+			}
+
+			var queryParam = window.location.search.replace('?', '').split('=');
+			var queryParamName = queryParam[0];
+			var queryParamValue = queryParam[1];
+			
+			if (queryParamName === 'id' && queryParamValue) {
+				$.ajax({
+				  url: "/orders/" + queryParamValue,
+				  method: "GET",
+				  contentType: "application/json"
+				})
+				.done(function(data) {
+					renderOrder(data);
+				})
+			}
+		})
+
+
+	</script>
+</html>

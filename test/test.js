@@ -5,7 +5,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-const {Orders} = require('../models');
+const {Orders} = require('../ordersModels');
 
 const {closeServer, runServer, app} = require('../server');
 
@@ -17,24 +17,12 @@ describe('Orders API resource', function() {
 		return closeServer();
 	})
 
-	// it('should return status code of 200', function() {
-	// 	return chai.request(app)
-	// 		.get('/')
-	// 		.then(function(res) {
-	// 			console.log('response')
-	// 			res.should.have.status(200);
-	// 			// console.log(res.body.length, count)
-	// 			// res.body.should.have.length.of(10);
-	// 		})
-	// });
-
 	// GET TEST
 	it('should return all orders', function() {
 			let res;
 			return chai.request(app)
 				.get('/orders')
 				.then(function(_res) {
-					console.log('response')
 					res = _res;
 					res.should.have.status(200);
 					// console.log(res.body.length, count)

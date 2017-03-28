@@ -7,42 +7,104 @@
 </head>
 <body>
 	<div class="home-image">
-		<div class="login-container">
-			<form id="login-form">
+		<div class="form-container">
+			<form class="login-form" id="login-form">
 				Username: <input type="text" name="username"><br>
-				Password: <input type="text" name="password"><br>
-				<button>Submit</button>
+				Password: <input type="password" name="password"><br>
+				<button>ENTER</button>
 			</form>
 		</div>
 	</div>
-	<div id="welcome"></div>
+	<div class="dashboard-welcome" id="welcome"></div>
 	<div id="orders"></div>
 	<script
 		src="https://code.jquery.com/jquery-3.1.1.min.js"
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	var state = {
+		authHeader: '',
+		orders: [],
+		user: {}
+	}
+
 	$(function() {
 		watchSubmit();
+		watchDelete();
+		watchAssign();
 	})
 
 	function renderWelcome(user) {
+		 $( '.home-image' ).hide();
 		var welcomeMessage = 
 		'<h3>Welcome, ' + user.firstName + ' ' + user.lastName + '!</h3>';
 		 $('#welcome').html(welcomeMessage);
 	}
 
-	function renderOrders(orders) {
+	function renderOrders(orders) {	
 		var htmlOrders = orders.map(function(order) {
-			return '<tr><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><button>View Order</button></td><td><button>Delete</button></td><td><button>Assign to Me</button></td></tr>';
+			return '<tr class="' + (order.assignedTo === state.user.username ? 'assigned-to-me' : '') + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><a class="orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
 		})
 
 		console.log(htmlOrders)
 
-		var table = '<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders 
+		var table = '<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders.join('') 
 			+ '</tbody></table>';
 
 		$('#orders').html(table)
+	}
+
+	function watchDelete() {
+		$(document).on('click', '.delete', function(e) {
+			e.preventDefault();
+			var currentRow = $(this).parents('tr')
+			var orderId = currentRow.data('order-id');
+
+			if (confirm("Are you sure you want to delete this order?")) {
+				$.ajax({
+				  url: "/orders/" + orderId,
+				  method: "DELETE",
+				  headers: {
+				  	Authorization: state.authHeader
+				  },
+				  contentType: "application/json"
+				})
+				.done(function(data) {
+					console.log('SUCCESS');
+					currentRow.remove();
+				})
+			}
+		})
+	}
+
+	function watchAssign() {
+		$(document).on('click', '.assign', function(e) {
+			e.preventDefault();
+			var currentRow = $(this).parents('tr')
+			var orderId = currentRow.data('order-id');
+
+			var order = $.grep(state.orders, function(item) {
+        		return item._id === orderId;
+      		})[0];
+
+      		order.assignedTo = state.user.username;
+      		console.log(order);    		
+
+			$.ajax({
+			  url: "/orders/" + orderId,
+			  method: "PUT",
+			  headers: {
+			  	Authorization: state.authHeader
+			  },
+			  data: JSON.stringify(order),
+			  contentType: "application/json"
+			})
+			.done(function(data) {
+				console.log('SUCCESSFUL ASSIGN');
+				console.log(currentRow)
+				currentRow.addClass('assigned-to-me');
+			})
+		})
 	}
 
 	function watchSubmit() {
@@ -58,15 +120,15 @@
 
 			var username = $('#login-form input[name="username"]').val()
 			var password = $('#login-form input[name="password"]').val()
-			var authHeader = 'Basic ' + btoa(username + ':' + password)
+			state.authHeader = 'Basic ' + btoa(username + ':' + password)
 
-			console.log(authHeader)
+			// console.log(authHeader)
 
 			$.ajax({
 			  url: "/users/me",
 			  method: "GET",
 			  headers: {
-			  	Authorization: authHeader
+			  	Authorization: state.authHeader
 			  },
 			  // data: JSON.stringify(loginFormData),
 			  contentType: "application/json"
@@ -74,18 +136,17 @@
 			.done(function( data ) {
     			// alert( "Data Loaded: " + data.user.firstName );
     			renderWelcome(data.user);
+    			state.user = data.user;
+
     			$( '#login-form' ).hide();
 			
 				$.ajax({
 				  url: "/orders",
 				  method: "GET",
-				  // headers: {
-				  // 	Authorization: authHeader
-				  // },
-				  // data: JSON.stringify(loginFormData),
 				  contentType: "application/json"
 				})
 				.done(function(data) {
+					state.orders = data;
 					renderOrders(data)
 					// console.log(data);
 				})

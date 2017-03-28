@@ -1,3 +1,7 @@
+<!-- add warning messages and confirmation messages
+work on tests 
+tried to create a new user Jane Doe to see message and it didn't work-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,14 +10,17 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-<form id=signup-form>
-	First Name:<br> <input type="text" name="firstName"><br>
-	Last Name:<br> <input type="text" name="lastName"><br>
-	Username:<br> <input type="text" name="username"><br>
-	Password:<br> <input type="text" name="password"><br>
-	<button>submit</button>
-</form>
+<div class="home-image">
+	<div class="form-container">
+		<form class="signup-form" id="signup-form">
+			First Name: <input required type="text" name="firstName"><br>
+			Last Name: <input required type="text" name="lastName"><br>
+			Username: <input required type="text" name="username"><br>
+			Password: <input required type="password" name="password"><br>
+			<button>SUBMIT</button>
+		</form>
+		<div id="message"></div>
+	</div>
 </div>
 <script
 	src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -44,8 +51,13 @@ function watchSubmit() {
 		  contentType: "application/json"
 		})
 		.done(function( data ) {
-    			alert( "Data Loaded: " + data );
-	  		});
+	    	var message = "<p>Your account has been created.</p><br>" + 
+				"<a class='login-link' href='/orders.html'>LOG IN</a>";
+			$( '#signup-form' ).hide();
+			$('#message').html(message);
+			// Check for 422 and show error message
+			// See why we have fields in query strings
+  		});
 	})
 }
 </script>

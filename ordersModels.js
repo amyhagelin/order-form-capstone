@@ -13,7 +13,8 @@ const ordersSchema = mongoose.Schema ({
 	decoration: {type: String},
 	message: {type: String},
 	requests: {type: String},
-	submissionDate: {type: Date, default: new Date(), required: true}
+	submissionDate: {type: Date, default: new Date(), required: true},
+	assignedTo: {type: String}
 })
 
 const Orders = mongoose.model('Orders', ordersSchema);

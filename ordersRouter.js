@@ -10,11 +10,26 @@ router.get('/', (req, res) => {
   Orders
   	.find()
   	.then(data => {
-		res.json(data);  
+		  res.json(data);  
   	})
   	.catch(err => {
-		res.status(500).send('Something went wrong');
-	});
+		  res.status(500).send('Something went wrong');
+	 });
+});
+
+router.get('/:id', (req, res) => {
+  // res.send(req.params.id);
+  // TODO: add searching by id (see blogapi for example)
+    Orders
+    .findById(req.params.id)
+    .exec()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went wrong'});
+    });
 });
 
 router.post('/', jsonParser, (req,res) => {

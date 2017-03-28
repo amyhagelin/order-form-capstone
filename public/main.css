@@ -5,17 +5,28 @@ body {
 	background-color: #BBE6ED
 }
 
-form {
+.signup-form, .login-form {
 		line-height: 200%;
 		display: inline-block;
-    	text-align: left;
+    	text-align: center;
+    	padding: 15px;
 }
 
-.login-container {
-	margin: auto;
-	background-color: white;
-	padding: 20px;
-	width: 30%;
+.order-form {
+	line-height: 200%;
+	text-align: left;
+	padding: 40px;
+}
+
+.form-container {
+	width: 250px;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+	height: 200px;
+    position: absolute;
+    left: 35%;
+    top: calc(40% - 120px);
 }
 
 a {
@@ -35,7 +46,69 @@ a {
 }
 
 a:hover {
-	background-color: #E8CFDE;
+/*	background-color: #E8CFDE;
+*/	background-color: #FF88AD;
+}
+
+.order-link {
+    background-color: #FF88AD;
+}
+
+form > button {
+	font-family: 'Nunito', sans-serif;
+	width: 100px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #FF88AD;
+    border: 2px solid white;
+    box-shadow: none;
+    letter-spacing: 1px;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    margin-top: 20px;
+}
+
+form > button:hover {
+	background-color: #F24477;
+
+}
+
+.login-link {
+	color: black;
+	border: 2px solid black;
+}
+
+#message {
+	text-align: center;
+}
+
+.dashboard-welcome {
+	margin-left: 30px;
+}
+
+.assigned-to-me {
+	background-color: #FF88AD !important;
+}
+
+.orders-table {
+	font-family: 'Nunito', sans-serif;
+	/*width: 170px;
+    height: 40px;*/
+    font-size: 14px;
+    background-color: white;
+    border: 2px solid grey;
+    box-shadow: none;
+    letter-spacing: 1px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+   /* margin: 10px;
+    margin-top: 20px;*/
+}
+
+.orders-table:hover {
+	background-color: #a8cfd5;
 }
 
 table, th, td {
@@ -61,15 +134,7 @@ table th {
 
 table {
 	border: 1px solid grey;
-
-}
-
-
-.container {
-	background-color: blue;
-	width: 50%;
-	margin: auto;
-	padding: 10%;
+	margin: 30px;
 }
 
 header {

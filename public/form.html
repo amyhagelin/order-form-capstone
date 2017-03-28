@@ -6,7 +6,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
-	<form id='order-form'>
+	<form class="order-form" id='order-form'>
 		Name: <input type="text" name="name"><br>
 		Email: <input type="email" name="email"><br>
 		Phone Number: <input type="text" name="phone"><br>
@@ -25,8 +25,9 @@
 		Decoration: <input type="text" name="decoration"><br>
 		Written Message: <input type="text" name="message"><br>
 		Additional Requests: <input type="text" name="requests"><br>
-		<button><h3>SUBMIT</h3></button>
+		<button>SUBMIT</button>
 	</form>
+	<div id="message"></div>
 <script
 	src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -63,6 +64,8 @@ function watchSubmit() {
 
 		console.log(orderFormData)
 
+		//TODO ADD ERROR CATCHING	
+
 		$.ajax({
 		  url: "/orders",
 		  method: "POST",
@@ -70,7 +73,11 @@ function watchSubmit() {
 		  contentType: "application/json"
 		})
 		.done(function( data ) {
-    			alert( "Data Loaded: " + data );
+    		var message = "<p>Thank you! Your order has been submitted.</p><br>" + 
+			"<a href='/index.html'>HOME</a>";
+			console.log(message);
+			$( '#order-form' ).hide();
+			$('#message').html(message);
 	  		});
 	  		
 
