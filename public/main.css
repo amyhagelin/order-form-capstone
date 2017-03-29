@@ -12,7 +12,7 @@ body {
     	padding: 15px;
 }
 
-.order-form {
+.order-form, #order {
 	line-height: 200%;
 	text-align: left;
 	padding: 40px;
@@ -107,8 +107,22 @@ form > button:hover {
     margin-top: 20px;*/
 }
 
-.orders-table:hover {
+.orders-table:hover, .view-order:hover {
 	background-color: #a8cfd5;
+}
+
+.view-order {
+	border: 2px solid gray;
+	background-color: white;
+	padding: 5px;
+	text-align: center;
+}
+
+.view-order-link {
+	border: none;
+	background-color: none;
+	background: none;
+	text-align: center;
 }
 
 table, th, td {

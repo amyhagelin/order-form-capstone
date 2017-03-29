@@ -43,7 +43,7 @@
 
 	function renderOrders(orders) {	
 		var htmlOrders = orders.map(function(order) {
-			return '<tr class="' + (order.assignedTo === state.user.username ? 'assigned-to-me' : '') + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><a class="orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
+			return '<tr class="' + (order.assignedTo === state.user.username ? 'assigned-to-me' : '') + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
 		})
 
 		console.log(htmlOrders)
@@ -103,6 +103,7 @@
 				console.log('SUCCESSFUL ASSIGN');
 				console.log(currentRow)
 				currentRow.addClass('assigned-to-me');
+				// $('.assign').hide(); HOW TO DO THIS?
 			})
 		})
 	}
@@ -111,18 +112,9 @@
 		$(document).on('submit', '#login-form', function(e) {
 			console.log('submit')
 			e.preventDefault();
-
-			// var loginFormData = {}
-
-			// $('#login-form input').each(function() {
-			// 	loginFormData[$(this).attr('name')] = $(this).val()
-			// })
-
 			var username = $('#login-form input[name="username"]').val()
 			var password = $('#login-form input[name="password"]').val()
 			state.authHeader = 'Basic ' + btoa(username + ':' + password)
-
-			// console.log(authHeader)
 
 			$.ajax({
 			  url: "/users/me",
@@ -130,11 +122,9 @@
 			  headers: {
 			  	Authorization: state.authHeader
 			  },
-			  // data: JSON.stringify(loginFormData),
 			  contentType: "application/json"
 			})
 			.done(function( data ) {
-    			// alert( "Data Loaded: " + data.user.firstName );
     			renderWelcome(data.user);
     			state.user = data.user;
 
@@ -148,7 +138,6 @@
 				.done(function(data) {
 					state.orders = data;
 					renderOrders(data)
-					// console.log(data);
 				})
 
 	  		});

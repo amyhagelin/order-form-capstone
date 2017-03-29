@@ -73,6 +73,32 @@ describe('Orders API resource', function() {
 				});
 		})
 
+// PUT TEST
+
+	const updateData = {name: 'Updated Name', email: 'updated@email.com', phone: '123456789'};
+
+		it('should update an existing order', function() {
+			return Orders
+			.findOne()
+			.exec()
+			.then(function(order){
+				updateData._id = order._id;
+				return chai.request(app)
+					.put(`/orders/${order._id}`)
+					.send(updateData);
+			})
+			.then(function(res){
+				res.should.have.status(204);
+
+				return Orders.findById(updateData._id).exec();
+			})
+			.then(function(order) {
+				order.name.should.equal(updateData.name);
+				order.email.should.equal(updateData.email);
+				order.phone.should.equal(updateData.phone);
+			});
+		})
+
 
 	// DELETE TEST
 	it('should delete an order', function() {
@@ -95,32 +121,7 @@ describe('Orders API resource', function() {
 			})	
 	})
 
-	// PUT TEST
-
-	// const updateData = {name: 'Updated Name', email: 'updated@email.com', phone: '123456789'};
-
-	// 	it('should update an existing order', function() {
-	// 		return Orders
-	// 		.findOne()
-	// 		.exec()
-	// 		.then(function(order){
-	// 			updateData._id = order._id;
-	// 			return chai.request(app)
-	// 				.put(`/orders/${order._id}`)
-	// 				.send(updateData);
-	// 		})
-	// 		.then(function(res){
-	// 			res.should.have.status(204);
-
-	// 			return Orders.findById(updateData._id).exec();
-	// 		})
-	// 		.then(function(order) {
-	// 			order.name.should.equal(updateData.name);
-	// 			order.email.should.equal(updateData.email);
-	// 			order.phone.should.equal(updateData.phone);
-	// 		});
-	// 	})
-
+	
 
 
 

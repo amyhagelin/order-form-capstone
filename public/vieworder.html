@@ -2,9 +2,11 @@
 <html>
 <head>
 	<title>View Order</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
-<div id="order">Hello order!</div>
+<div id="order"></div>
 </body>
 <script
 		src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -14,7 +16,7 @@
 		$(function() {
 			
 			function renderOrder(data) {
-				// TODO put renderOrder function here 	
+				// TODO format date properly
 				console.log("data" + data);
 
 				var orderHTML = '<div><p>' +
