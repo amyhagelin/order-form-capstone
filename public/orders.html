@@ -37,12 +37,34 @@
 	function renderWelcome(user) {
 		 $( '.home-image' ).hide();
 		var welcomeMessage = 
-		'<h3>Welcome, ' + user.firstName + ' ' + user.lastName + '!</h3>';
+		'<div class="log-out"><a href="/index.html">LOG OUT</a></div>' +
+		'<div><h3>Welcome, ' + user.firstName + ' ' + user.lastName + '!</h3></div>'
 		 $('#welcome').html(welcomeMessage);
 	}
 
 	function renderOrders(orders) {	
 		var htmlOrders = orders.map(function(order) {
+			console.log(order);
+		
+		// function determineAssignedClass(order) {
+		// 	console.log("assigned class data:" + data);
+		// 	let assignedClass
+		// 	if (order.assignedTo === undefined) {
+		// 		assignedClass = "";
+		// 	}
+		// 	else if (order.assignedTo === "state.user.username") {
+		// 		assignedClass = "assigned-to-me";
+		// 	}
+		// 	else {
+		// 		assignedClass = "assigned-to-other";
+		// 	}
+		// 	return assignedClass;
+		// };
+
+		// determineAssignedClass(order);
+
+		// 	return '<tr class=' + assignedClass + ' data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
+
 			return '<tr class="' + (order.assignedTo === state.user.username ? 'assigned-to-me' : '') + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
 		})
 
