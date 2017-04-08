@@ -6,6 +6,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 const {Orders} = require('../ordersModels');
+const {User} = require('../usersModels');
 
 const {closeServer, runServer, app} = require('../server');
 
@@ -121,8 +122,73 @@ describe('Orders API resource', function() {
 			})	
 	})
 
-	
 
+	// POST /users
+	// --> test if you can receive 200 with correct data
+	// --> test for 422 with some incorrect data
+
+	function generateUser() {
+		return {
+			username: `testusername-${Date.now()}`,
+			password: "testpassword",
+			firstName: "Firstname",
+			lastName: "Lastname"
+		}
+	}
+
+	const newUser = generateUser();
+	let newUserId = null;
+
+	it('should create a new user', function() {
+		return chai.request(app)
+			.post('/users')
+			.send(newUser)
+			.then(function(res){
+				res.should.have.status(201);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.should.include.keys('username', 'firstName', 'lastName');
+				res.body.username.should.equal(newUser.username);
+				res.body._id.should.not.be.null;
+				res.body.firstName.should.equal(newUser.firstName);
+				res.body.lastName.should.equal(newUser.lastName);
+				newUserId = res.body._id;	
+				console.log(newUserId);
+				return User.findById(res.body._id);
+			})
+			.then(function(user) {
+				user.username.should.equal(newUser.username);
+				user.firstName.should.equal(newUser.firstName);
+				user.lastName.should.equal(newUser.lastName);
+			});
+	})
+
+	// DELETE TEST
+	it('should delete a user', function() {
+
+		let userTemp;
+
+		return User
+			.findById(newUserId)
+			.exec()
+			.then(function(user) {
+				userTemp = user;
+				return chai.request(app).delete(`/users/${user._id}`);
+			})
+			.then(function(res){
+				res.should.have.status(204);
+				return User.findById(userTemp._id).exec();
+			})
+			.then(function(user){
+				should.not.exist(user);
+			})	
+	})
+
+	
+	// GET /users/me
+	// --> test if you can receive 200 with correct username/password
+	// --> test if you can't login withouth correct username/password
+	
 
 
 

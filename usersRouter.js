@@ -138,5 +138,18 @@ router.get('/me',
   (req, res) => res.json({user: req.user.apiRepr()})
 );
 
+router.delete('/:id', (req, res) => {
+  User
+    .findByIdAndRemove(req.params.id)
+    .exec()
+    .then(() => {
+      console.log(`Deleted user with id: \`${req.params.id}\``);
+      res.status(204).end()
+    })
+    .catch(err => {
+      res.status(500).send('Something went wrong');
+  });
+});
+
 
 module.exports = router;

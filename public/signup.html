@@ -51,17 +51,16 @@ function watchSubmit() {
 				"<a class='login-link' href='/orders.html'>LOG IN</a>";
 			$( '#signup-form' ).hide();
 			$('#message').html(message);		
-			// Check for 422 and show error message
 			// See why we have fields in query strings
   		})
   		.fail(err => {
   			if (err.status === 422) {
-  				// put in inside the box on the UI
+  				$('#signup-form').append('<p>Username not available.</p>');
   				console.log(err.responseJSON.message);
   			} else {
   				console.log('Unexpected server error, contact support');
   			}
-      		// res.status(422).json({alert: 'Username not available. Please select another.'});
+   
     	});
 	})
 }

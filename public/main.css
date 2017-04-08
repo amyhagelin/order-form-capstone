@@ -12,6 +12,11 @@ body {
     	padding: 15px;
 }
 
+.signup-form > p {
+	color: red;
+	padding-bottom: 3px;
+}
+
 .order-form, #order {
 	line-height: 200%;
 	text-align: left;
@@ -22,8 +27,8 @@ body {
 	width: 250px;
     margin: auto;
     background-color: white;
-    padding: 20px;
-	height: 200px;
+    padding: 25px;
+	height: 225px;
     position: absolute;
     left: 35%;
     top: calc(40% - 120px);

@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 router.post('/', jsonParser, (req,res) => {
   ['name', 'email', 'phone'].forEach((field) => {
   	if (!(req.body[field])) {
-      const message = `Missing \`${field}\` in request body.`
+      const message = `Missing \`${field}\` property.`
       console.error(message);
       return res.status(400).send(message);
     }
@@ -80,28 +80,7 @@ router.put('/:id', jsonParser, (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  // console.log(`Updating order \`${req.params.id}\``);
-   
- //   const toUpdate = {};
- //   const updateableFields = {
-	//    	name,
-	//    	email,
-	//    	phone,
-	//    	pickupDate,
-	//     pickupTime, 
-	//     cakeServings,
-	//     cupcakeServings,
-	//     cakeFlavor,
-	//     frostingFlavor,
-	//     decoration,
-	//     message,
-	//     requests
-	// };
- //    updatableFields.forEach(field => {
- //      if (field in req.body) {
- //        toUpdate[field] = req.body[field];
- //      }
- //    });
+
 
     Orders
       .findByIdAndUpdate(req.params.id, {$set: req.body})

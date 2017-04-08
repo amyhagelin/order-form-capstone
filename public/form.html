@@ -39,7 +39,6 @@ $(function() {
 
 function watchSubmit() {
 	$(document).on('submit', '#order-form', function(e) {
-		console.log('submit')
 		e.preventDefault();
 
 		var orderFormData = {
@@ -62,7 +61,6 @@ function watchSubmit() {
 			}				
 		})
 
-		console.log(orderFormData)
 
 		//TODO ADD ERROR CATCHING	
 
@@ -78,6 +76,16 @@ function watchSubmit() {
 			console.log(message);
 			$( '#order-form' ).hide();
 			$('#message').html(message);
+		})
+		.fail(err => {
+			console.log(err)
+  			if (err.status === 400) { // HELP
+  				$('#order-form').append('<p>' + err.responseText + '</p>');
+  				console.log(err.responseText);
+  			} else {
+  				console.log('Unexpected server error, contact support');
+  			}
+
 	  		});
 	  		
 
