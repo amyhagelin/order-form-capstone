@@ -12,11 +12,11 @@
 		src="https://code.jquery.com/jquery-3.1.1.min.js"
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			
 			function renderOrder(data) {
-				// TODO format date properly
 
 				console.log("data" + data);
 
@@ -24,25 +24,21 @@
 				'<th>Data</th></thead><tbody>' + 
 				'<tr><td>Name:</td><td>' + data.name + '</td></tr>' +
 				'<tr><td>Email: </td><td>' + data.email + '</td></tr>' +
-				'<tr><td>Pick-up Date: </td><td>' + data.pickupDate + '</td></tr>' +
-				'<tr><td>Pick-up Time: </td><td>' + data.pickupTime + '</td></tr>' +
-				'<tr><td>Cake Servings: </td><td>' + data.cakeServings + '</td></tr>' +
-				'<tr><td>Cupcake Servings: </td><td>' + data.cupcakeServings + '</td></tr>' +
-				'<tr><td>Cake Flavor: </td><td>' + data.cakeFlavor + '</td></tr>' +
-				'<tr><td>Frosting Flavor: </td><td>' + data.frostingFlavor + '</td></tr>' +
-				'<tr><td>Decoration: </td><td>' + data.decoration + '</td></tr>' +
-				'<tr><td>Message: </td><td>' + data.message + '</td></tr>' +
-				'<tr><td>Requests: </td><td>' + data.requests + '</td></tr>' +
-				'<tr><td>Date Order Submitted: </td><td>' + data.submissionDate + '</td></tr>' +
+				'<tr><td>Pick-up Date: </td><td>' + (data.pickupDate || 'N/A') + '</td></tr>' +
+				'<tr><td>Pick-up Time: </td><td>' + (data.pickupTime || 'N/A') + '</td></tr>' +
+				'<tr><td>Cake Servings: </td><td>' + (data.cakeServings || 'N/A') + '</td></tr>' +
+				'<tr><td>Cupcake Servings: </td><td>' + (data.cupcakeServings || 'N/A') + '</td></tr>' +
+				'<tr><td>Cake Flavor: </td><td>' + (data.cakeFlavor || 'N/A') + '</td></tr>' +
+				'<tr><td>Frosting Flavor: </td><td>' + (data.frostingFlavor || 'N/A') + '</td></tr>' +
+				'<tr><td>Decoration: </td><td>' + (data.decoration || 'N/A') + '</td></tr>' +
+				'<tr><td>Message: </td><td>' + (data.message || 'N/A') + '</td></tr>' +
+				'<tr><td>Requests: </td><td>' + (data.requests || 'N/A') + '</td></tr>' +
+				'<tr><td>Date Order Submitted: </td><td>' + 
+				moment(data.submissionDate).format('MM/DD/YYYY') + '</td></tr>' +
 				'<tr><td>Assigned To: </td><td>' + data.assignedTo + '</td></tr>'
 				+ '</tbody></table>';
 
 				 $('#order').html(orderHTML);
-
-				// var table = '<table><thead><tr><th>Item</th><th>Data</th>' + 
-				// '</thead><tbody>' + orderHTML.join('') + '</tbody></table>';
-
-				// $('#orders').html(table)
 
 			}
 

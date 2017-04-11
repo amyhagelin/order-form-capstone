@@ -14,7 +14,7 @@ body {
 
 .signup-form > p {
 	color: red;
-*/}
+}
 
 .order-form, #order {
 	line-height: 200%;
@@ -105,6 +105,10 @@ form > button:hover {
 	background-color: #FF88AD !important;
 }
 
+.assigned-to-other {
+	background-color: #98ff98 !important;
+}
+
 .orders-table {
 	font-family: 'Nunito', sans-serif;
     font-size: 14px;
@@ -151,17 +155,21 @@ th, td {
 	padding: 15px;
 }
 
-table tr:nth-child(even) {
+table.single-order-table tr:nth-child(even) {
     background-color: #eee;
 }
 
-table tr:nth-child(odd) {
+table.single-order-table tr:nth-child(odd) {
     background-color: #fff;
 }
 
 table th {
     color: white;
     background-color: grey;
+}
+
+table tr {
+	background-color: white;
 }
 
 table {
@@ -196,3 +204,30 @@ h1 {
 	font-size: 300%;
 }
 
+.legend {
+	margin-top: 60px;
+}
+.legend-item {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border: black solid 2px;
+	margin-left: 30px;
+	margin-right: 8px;
+}
+
+.legend-description {
+	display: inline-block;
+}
+
+.legend-unassigned {
+	background-color: white;
+}
+
+.legend-other {
+	background-color: #98ff98;
+}
+
+.legend-me {
+	background-color: #FF88AD;
+}

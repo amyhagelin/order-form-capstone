@@ -46,34 +46,31 @@
 		var htmlOrders = orders.map(function(order) {
 			console.log(order);
 		
-		// function determineAssignedClass(order) {
-		// 	console.log("assigned class data:" + data);
-		// 	let assignedClass
-		// 	if (order.assignedTo === undefined) {
-		// 		assignedClass = "";
-		// 	}
-		// 	else if (order.assignedTo === "state.user.username") {
-		// 		assignedClass = "assigned-to-me";
-		// 	}
-		// 	else {
-		// 		assignedClass = "assigned-to-other";
-		// 	}
-		// 	return assignedClass;
-		// };
+		function determineAssignedClass(order) {
+			let assignedClass
+			if (!order.assignedTo) {
+				assignedClass = "";
+			}
+			else if (order.assignedTo === state.user.username) {
+				assignedClass = "assigned-to-me";
+			}
+			else {
+				assignedClass = "assigned-to-other";
+			}
+			return assignedClass;
+		};
 
-		// determineAssignedClass(order);
 
-		// 	return '<tr class=' + assignedClass + ' data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
-
-			return '<tr class="' + (order.assignedTo === state.user.username ? 'assigned-to-me' : '') + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + order.pickupDate + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
+			return '<tr class="' + determineAssignedClass(order) + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + (order.pickupDate || 'N/A') + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
 		})
 
-		console.log(htmlOrders)
+		// console.log(htmlOrders)
+		var legend = '<div class="legend"><div class="legend-item legend-unassigned"></div><div class="legend-description"> = Unassigned</div><div class="legend-item legend-other"></div><div class="legend-description"> = Assigned to Other</div><div class="legend-item legend-me"></div><div class="legend-description"> = Assigned to Me</div></div>'
 
 		var table = '<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders.join('') 
 			+ '</tbody></table>';
 
-		$('#orders').html(table)
+		$('#orders').html(legend + table)
 	}
 
 	function watchDelete() {
