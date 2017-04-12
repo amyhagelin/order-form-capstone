@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 router.post('/', jsonParser, (req,res) => {
   ['name', 'email', 'phone'].forEach((field) => {
   	if (!(req.body[field])) {
-      const message = `Missing \`${field}\` property.`
+      const message = `Please include \`${field}\`.`
       console.error(message);
       return res.status(400).send(message);
     }
