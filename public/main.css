@@ -115,7 +115,7 @@ form > button:hover {
 }
 
 .assigned-to-other {
-	background-color: #98ff98 !important;
+	background-color: #DAF8DD !important;
 }
 
 .orders-table {
@@ -234,7 +234,7 @@ h1 {
 }
 
 .legend-other {
-	background-color: #98ff98;
+	background-color: #DAF8DD;
 }
 
 .legend-me {
