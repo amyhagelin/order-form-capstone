@@ -101,6 +101,15 @@ form > button:hover {
 	padding-right: 30px;
 }
 
+.assign[disabled] {
+	background-color: #eee;
+	color: #aaa;
+}
+
+.assign[disabled]:hover {
+	background-color: #eee;
+}
+
 .assigned-to-me {
 	background-color: #FF88AD !important;
 }

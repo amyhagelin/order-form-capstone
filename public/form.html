@@ -12,11 +12,11 @@
 		Email: <input type="email" name="email"><br>
 		Phone: <input type="text" name="phone"><br>
 		<br>
-		Pick-up Date: <input type="date" name="pick-up-date"><br>
-		Pick-up Time: <input type="text" name="pick-up-time"><br>
+		Pick-up Date: <input type="date" name="pickupDate"><br>
+		Pick-up Time: <input type="text" name="pickupTime"><br>
 		<br>
-		Cake Servings: <input type="number" name="cake-servings"><br>
-		Cupcake Servings: <input type="number" name="cupcake-servings"><br>
+		Cake Servings: <input type="number" name="cakeServings"><br>
+		Cupcake Servings: <input type="number" name="cupcakeServings"><br>
 		<br>
 		Cake Flavor: <input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
 		<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
@@ -52,8 +52,11 @@ function watchSubmit() {
 		}
 
 		$('#order-form input:not([type="checkbox"])').each(function() {
+			console.log($(this).attr('name'), $(this).val())
 			orderFormData[$(this).attr('name')] = $(this).val()
 		})
+
+		console.log(orderFormData)
 
 		$('#order-form input[type="checkbox"]').each(function() {
 			if($(this).prop('checked')) {
@@ -65,6 +68,8 @@ function watchSubmit() {
 				}
 			}				
 		})
+
+		console.log(JSON.stringify(orderFormData))
 
 		$.ajax({
 		  url: "/orders",

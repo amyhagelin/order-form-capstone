@@ -61,10 +61,9 @@
 		};
 
 
-			return '<tr class="' + determineAssignedClass(order) + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + (order.pickupDate || 'N/A') + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table">Assign to Me</button></td></tr>';
+			return '<tr class="' + determineAssignedClass(order) + '" data-order-id="' + order._id + '"><td>' + order.name + '</td><td>' + order.email + '</td><td>' + order.phone + '</td><td>' + (order.pickupDate || 'N/A') + '</td><td><div class="view-order"><a class="view-order-link orders-table" href="/vieworder.html?id=' + order._id + '" target="_blank">View Order</a></div></td><td><button class="delete orders-table">Delete</button></td><td><button class="assign orders-table" ' + (order.assignedTo ? 'disabled' : '') + '>Assign to Me</button></td></tr>';
 		})
 
-		// console.log(htmlOrders)
 		var legend = '<div class="legend"><div class="legend-item legend-unassigned"></div><div class="legend-description"> = Unassigned</div><div class="legend-item legend-other"></div><div class="legend-description"> = Assigned to Other</div><div class="legend-item legend-me"></div><div class="legend-description"> = Assigned to Me</div></div>'
 
 		var table = '<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders.join('') 
@@ -101,13 +100,14 @@
 			e.preventDefault();
 			var currentRow = $(this).parents('tr')
 			var orderId = currentRow.data('order-id');
+			var button = $(this);
 
 			var order = $.grep(state.orders, function(item) {
         		return item._id === orderId;
       		})[0];
 
       		order.assignedTo = state.user.username;
-      		console.log(order);    		
+      		
 
 			$.ajax({
 			  url: "/orders/" + orderId,
@@ -119,10 +119,8 @@
 			  contentType: "application/json"
 			})
 			.done(function(data) {
-				console.log('SUCCESSFUL ASSIGN');
-				console.log(currentRow)
 				currentRow.addClass('assigned-to-me');
-				// $('.assign').hide(); HOW TO DO THIS?
+				button.prop('disabled', true);
 			})
 		})
 	}
