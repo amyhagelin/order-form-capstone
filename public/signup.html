@@ -4,6 +4,7 @@
 	<title>Sign Up</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="home-image">
@@ -51,7 +52,6 @@ function watchSubmit() {
 				"<a class='login-link' href='/orders.html'>LOG IN</a>";
 			$( '#signup-form' ).hide();
 			$('#message').html(message);		
-			// See why we have fields in query strings
   		})
   		.fail(err => {
   			if (err.status === 422) {

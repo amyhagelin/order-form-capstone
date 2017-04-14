@@ -4,6 +4,7 @@
 	<title>Orders</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<div class="home-image">
@@ -13,6 +14,7 @@
 				Password: <input type="password" name="password"><br>
 				<button>ENTER</button>
 			</form>
+			<p>DEMO LOGIN<br>Username: testuser1<br>Password: password1</p>
 		</div>
 	</div>
 	<div class="dashboard-welcome" id="welcome"></div>
@@ -66,8 +68,8 @@
 
 		var legend = '<div class="legend"><div class="legend-item legend-unassigned"></div><div class="legend-description"> = Unassigned</div><div class="legend-item legend-other"></div><div class="legend-description"> = Assigned to Other</div><div class="legend-item legend-me"></div><div class="legend-description"> = Assigned to Me</div></div>'
 
-		var table = '<table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders.join('') 
-			+ '</tbody></table>';
+		var table = '<div class="table-container"><table><thead><tr><th>Name</th><th>Email</th><th>Phone</th>' + '<th>Pickup Date</th><th>View Order</th><th>Delete</th><th>Assign to Me</th></tr></thead><tbody>' + htmlOrders.join('') 
+			+ '</tbody></table></div>';
 
 		$('#orders').html(legend + table)
 	}
