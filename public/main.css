@@ -23,13 +23,13 @@ body {
 }
 
 .form-container {
-	width: 250px;
+	width: 280px;
     margin: auto;
     background-color: white;
     padding: 25px;
 	height: 225px;
     position: absolute;
-    left: calc(50% - 150px);
+    left: calc(50% - 165px);
     top: calc(40% - 120px);
     text-align: center;
 }
@@ -230,14 +230,14 @@ header {
 
 .welcome p {
 	text-align: center;
-	color: white;
+	color: #777777;
 	letter-spacing: 1px;
 }
 
-.welcome h2 {
+.welcome h1 {
 	text-align: center;
 	padding-top: 10%;
-	color: white;
+	color: #555555;
 	letter-spacing: 1px;
 }
 
