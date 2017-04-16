@@ -45,6 +45,14 @@ button.submit {
 	border: 2px solid #BBE6ED;
 }
 
+.order-form > input[name="cake-flavor"] {
+	margin-left: 10px;
+}
+
+.order-form > input[name="frosting-flavor"] {
+	margin-left: 10px;
+}
+
 .form-container {
 	width: 280px;
     margin: auto;
