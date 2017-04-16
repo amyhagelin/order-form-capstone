@@ -7,33 +7,46 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<div class="home-image-order">
 	<div class="form-header"><a class="home" href="/index.html">HOME</a></div>
-	<form class="order-form" id='order-form'>
-		Name: <input type="text" name="name"><br>
-		Email: <input type="email" name="email"><br>
-		Phone: <input type="text" name="phone"><br>
-		<br>
-		Pick-up Date: <input type="date" name="pickupDate"><br>
-		Pick-up Time: <input type="text" name="pickupTime"><br>
-		<br>
-		Cake Servings: <input type="number" name="cakeServings"><br>
-		Cupcake Servings: <input type="number" name="cupcakeServings"><br>
-		<br>
-		Cake Flavor: <input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
-		<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
-		<input type="checkbox" name="cake-flavor" value="lemon" />Lemon
-		<input type="checkbox" name="cake-flavor" value="carrot" />Carrot
-		<input type="checkbox" name="cake-flavor" value="red-velvet" />Red Velvet<br>
-		Frosting Flavor: <input type="checkbox" name="frosting-flavor" value="vanilla" />Vanilla
-		<input type="checkbox" name="frosting-flavor" value="chocolate" />Chocolate
-		<input type="checkbox" name="frosting-flavor" value="cream-cheese" />Cream Cheese<br>
-		<br>
-		Decoration: <input type="text" name="decoration"><br>
-		Written Message: <input type="text" name="message"><br>
-		Additional Requests: <input type="text" name="requests"><br>
-		<button>SUBMIT</button>
-	</form>
-	<div id="message"></div>
+	<div class="place-order">
+		<h1>Place an Order</h1>
+		<form class="order-form" id='order-form'>
+			Name:<br>
+			<input class="text" type="text" name="name"><br>
+			Email: <br>
+			<input class="text" type="email" name="email"><br>
+			Phone: <br>
+			<input class="text" type="text" name="phone"><br>
+			Pick-up Date: <br>
+			<input class="text" type="date" name="pickupDate"><br>
+			Pick-up Time: <br>
+			<input class="text" type="text" name="pickupTime"><br>
+			Cake Servings: <br>
+			<input class="text" type="number" name="cakeServings"><br>
+			Cupcake Servings: <br>
+			<input class="text" type="number" name="cupcakeServings"><br>
+			Cake Flavor: <br>
+			<input type="checkbox" name="cake-flavor" value="vanilla" />Vanilla
+			<input type="checkbox" name="cake-flavor" value="chocolate" />Chocolate
+			<input type="checkbox" name="cake-flavor" value="lemon" />Lemon
+			<input type="checkbox" name="cake-flavor" value="carrot" />Carrot
+			<input type="checkbox" name="cake-flavor" value="red-velvet" />Red Velvet<br>
+			Frosting Flavor: <br>
+			<input type="checkbox" name="frosting-flavor" value="vanilla" />Vanilla
+			<input type="checkbox" name="frosting-flavor" value="chocolate" />Chocolate
+			<input type="checkbox" name="frosting-flavor" value="cream-cheese" />Cream Cheese<br>
+			Decoration: <br>
+			<input class="text" type="text" name="decoration"><br>
+			Written Message: <br>
+			<input class="text" type="text" name="message"><br>
+			Additional Requests: <br>
+			<input class="text" type="text" name="requests"><br>
+			<button class="submit">SUBMIT</button>
+		</form>
+		<div id="message"></div>
+	</div>
+</div>
 <script
 	src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="

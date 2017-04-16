@@ -16,10 +16,33 @@ body {
 	color: red;
 }
 
+.place-order {
+	text-align: center;
+	width: 500px;
+	padding-top: 30px;
+	margin: auto;
+	background-color: white;
+	left: calc(50% - 250px);
+}
+
+button.submit {
+	margin-bottom: 40px;
+}
+
 .order-form, #order {
-	line-height: 200%;
+	line-height: 150%;
 	text-align: left;
-	padding: 40px;
+	padding-left: 40px;
+}
+
+.order-form > input.text {
+	width: 250px;
+	height: 20px;
+}
+
+.order-form > input {
+	margin-bottom: 20px;
+	border: 2px solid #BBE6ED;
 }
 
 .form-container {
@@ -215,6 +238,15 @@ header {
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 900px;
+}
+
+.home-image-order {
+
+	background-image: url("cupcakes.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 1100px;
+	padding-top: 40px;
 }
 
 .welcome {
