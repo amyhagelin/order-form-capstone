@@ -245,7 +245,7 @@ header {
 	background-image: url("cupcakes.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 900px;
+	height: 850px;
 }
 
 .home-image-order {
@@ -263,22 +263,21 @@ header {
 }
 
 .welcome-message {
-	width: 60%;
+	max-width: 600px;
 	margin: auto;
 	padding-bottom: 20px;
+	padding-top: 30px;
+	color: #3d3d3d;
 }
 
-.welcome p {
-	text-align: center;
-	color: #777777;
-	letter-spacing: 1px;
+.welcome-message li {
+	text-align: left;
+	margin-left: 10%; 
 }
 
-.welcome h1 {
-	text-align: center;
-	padding-top: 10%;
-	color: #555555;
-	letter-spacing: 1px;
+.welcome-message h2 {
+	text-align: left;
+	margin-left: 8%; 
 }
 
 .legend {
@@ -307,4 +306,14 @@ header {
 
 .legend-me {
 	background-color: #FF88AD;
+}
+
+@media (max-width: 480px) {
+	.welcome-message li {
+		margin-left: 0; 
+	}
+
+	.welcome-message h2 {
+		margin-left: 0; 
+	}
 }
